@@ -1,9 +1,12 @@
 ---
 # vars file for ansible-mariadb-galera-cluster
 
-galera_cluster_nodes: "\
-  {% set _galera_cluster_nodes = [] %}\
-  {% for host in groups[ galera_cluster_nodes_group ] %}\
-  {{   _galera_cluster_nodes.append( host ) }}\
-  {% endfor %}\
-  {{ _galera_cluster_nodes }}"
+#galera_cluster_nodes: "\
+#  {% set _galera_cluster_nodes = [] %}\
+#  {% for host in groups[ galera_cluster_nodes_group ] %}\
+#  {{   _galera_cluster_nodes.append( host ) }}\
+#  {% endfor %}\
+#  {{ _galera_cluster_nodes }}"
+
+galera_cluster_nodes_1: "{{ groups[galera_cluster_nodes_group] | map('extract', hostvars, ['ansible_host']) | join(',') }}"
+
